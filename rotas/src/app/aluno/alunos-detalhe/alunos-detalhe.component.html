@@ -1,0 +1,10 @@
+<div *ngIf="hideDetais">
+  <h5>
+    Detalhes
+  </h5>
+  <p>id : {{ aluno?.id }}</p>
+  <p>nome : {{ aluno?.nome }}</p>
+  <p>email : {{ aluno?.email }}</p>
+  <a *ngIf="disableEdit" class="waves-effect waves-light btn" (click)="editarContato()" >Editar</a>
+  <a class="waves-effect hide-detais btn " (click)="esconderDetalhes()" >Esconder</a>
+</div>

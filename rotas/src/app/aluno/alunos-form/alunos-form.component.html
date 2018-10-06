@@ -1,0 +1,27 @@
+<h5>
+  Criar/Editar Aluno
+</h5>
+<div class="col s12">
+  <div class="row">
+    <div class="input-field col s12">
+      <input disabled [(ngModel)]="aluno.id" id="identificador" type="text" class="validate">
+      <label for="identificador" class="active">Identificador</label>
+    </div>
+  </div>
+  <div class="row">
+      <div class="input-field col s12">
+        <input [(ngModel)]="aluno.nome" id="nome" type="text" class="validate" (blur)="habilitarBtnCriar()" (input)="onInput()">
+        <label for="nome" class="active">Nome</label>
+      </div>
+  </div>
+  <div class="row">
+      <div class="input-field col s12">
+         <input [(ngModel)]="aluno.email" id="email" class="validate" type="email" (blur)="habilitarBtnCriar()">
+         <label for="email" class="active">Email</label>
+      </div>
+  </div>
+  <div>
+    <input [disabled]="habilitarCriar" *ngIf="enableCreateOrEdit == true" class="waves-effect waves-light btn" (click)="confirmar()" type="button" value="Criar"/>
+    <input *ngIf="enableCreateOrEdit == false" class="waves-effect waves-light btn" (click)="confirmar()" type="button" value="Confirmar"/>
+  </div>
+</div>
