@@ -25,5 +25,7 @@
         Email é um campo obrigatório
       </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!formu.valid" >Submit</button>
+
+  <form-debug [form]="formu"></form-debug>
 </form>
