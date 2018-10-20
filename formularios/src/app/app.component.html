@@ -1,19 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="navbar-header">
-    <a class="navbar-brand" routerLink="">Angular Forms</a>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="">Angular Forms</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+          <a routerLink="/templateForm">Form - Template Driven</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/dataForm">Form - Data Driven</a>
+        </li>
+    </ul>
   </div>
-
-  <ul class="nav navbar-nav">
-    <li routerLinkActive="active">
-      <a routerLink="/templateForm">Form - Template Driven</a>
-    </li>
-    <li routerLinkActive="active" class="li-nav">
-      <a routerLink="/dataForm">Form - Data Driven</a>
-    </li>
-
-  </ul>
 </nav>
-
 
 <div class="container">
   <router-outlet></router-outlet>
