@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
+import { CompoControlComponent } from './compo-control/compo-control.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { DataFormComponent } from './data-form/data-form.component';
   declarations: [
     TemplateFormComponent,
     DataFormComponent,
-    FormDebugComponent
+    FormDebugComponent,
+    CompoControlComponent
   ]
 })
 export class TemplateFormModule { }
