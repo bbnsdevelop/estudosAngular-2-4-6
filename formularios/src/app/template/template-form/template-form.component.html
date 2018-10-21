@@ -14,7 +14,7 @@
       <label for="email" class="control-label">Email</label>
     </div>
     <div class="col-sm-12">
-      <input type="email" class="form-control" id="email" placeholder="nome@email.com" name="emial" [(ngModel)]="usuario.email"
+      <input type="email" class="form-control" id="email" placeholder="nome@email.com" name="email" [(ngModel)]="usuario.email"
         required email #email="ngModel">
       <compo-control [mostraErro]="varificaValidTouched(email)" msgErro="Email é um campo obrigatório"></compo-control>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaClassErro(cep)">
         <label for="cep" class="control-label">CEP</label>
-        <input class="form-control" type="text" id="cep" name="cep" ngModel required #cep="ngModel" (blur)="consultaCep($event.target.value)" />
+        <input class="form-control" type="text" id="cep" name="cep" ngModel required #cep="ngModel" (blur)="consultaCep($event.target.value, formu)" />
         <compo-control [mostraErro]="varificaValidTouched(cep)" msgErro="Cep é um campo obrigatório"></compo-control>
 
       </div>

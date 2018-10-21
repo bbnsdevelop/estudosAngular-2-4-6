@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'template-form',
@@ -13,8 +13,7 @@ export class TemplateFormComponent implements OnInit {
     nome: 'Bruno',
     email: 'brunno1808@hotmail.com'
   }
-
-  constructor(private http: Http) { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
   }
@@ -23,7 +22,7 @@ export class TemplateFormComponent implements OnInit {
     console.log(formu);
     console.log(this.usuario);
   }
-  varificaValidTouched(campo){
+  varificaValidTouched(campo) {
     return !campo.valid && campo.touched;
   }
   aplicaClassErro(campo) {
@@ -33,16 +32,50 @@ export class TemplateFormComponent implements OnInit {
     }
   }
 
-  consultaCep(cep){
+  consultaCep(cep, form) {
     let consultaViaCep = cep.replace(/\D/g, '');
-    if(consultaViaCep != ""){
-        let validaCep = /^[0-9]{8}$/;
-        if(validaCep.test(consultaViaCep)){
-          this.http.get(`//viacep.com.br/ws/${consultaViaCep}/json`)
-          .map(dados => dados.json)
-          .subscribe(dados => );
-        }
+    if (consultaViaCep != "") {
+      this.resetaForm(form);
+      let validaCep = /^[0-9]{8}$/;
+      if (validaCep.test(consultaViaCep)) {
+        this.httpClient.get<any>(`https://viacep.com.br/ws/${consultaViaCep}/json/`)
+          .subscribe(dados => this.popularDadosForm(dados, form));
+      }
     }
+  }
+  popularDadosForm(dados, form) {
+    form.setValue({
+      nome: form.value.nome,
+      email: form.value.email,
+      endereco: {
+        cep: dados.cep,
+        numero: "",
+        complemento: "",
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    })
+    form.form.patchValue({
+      endereco: {
+        cep: dados.cep,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    });
+  }
+  resetaForm(form) {
+    form.form.patchValue({
+      endereco: {
+        rua: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    });
   }
 
 }
