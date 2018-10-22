@@ -20,12 +20,11 @@
     </div>
   </div>
   <div ngModelGroup="endereco">
-
-
     <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaClassErro(cep)">
         <label for="cep" class="control-label">CEP</label>
-        <input class="form-control" type="text" id="cep" name="cep" ngModel required #cep="ngModel" (blur)="consultaCep($event.target.value, formu)" />
+        <input class="form-control" type="text" id="cep" name="cep" ngModel required #cep="ngModel" 
+               (blur)="consultaCep($event.target.value, formu)" />
         <compo-control [mostraErro]="varificaValidTouched(cep)" msgErro="Cep é um campo obrigatório"></compo-control>
 
       </div>
@@ -53,19 +52,19 @@
     <div class="form-group">
       <div class="col-md-5" [ngClass]="aplicaClassErro(bairro)">
         <label for="bairro" class="control-label">Bairro</label>
-        <input class="form-control" type="text" id="bairro" name="bairro" readonly ngModel required #bairro="ngModel" />
+        <input class="form-control" type="text" id="bairro" placeholder="Bairro" name="bairro" readonly ngModel required #bairro="ngModel" />
         <compo-control [mostraErro]="varificaValidTouched(bairro)" msgErro="Bairro é um campo obrigatório"></compo-control>
 
       </div>
       <div class="col-md-4" [ngClass]="aplicaClassErro(cidade)">
         <label for="cidade" class="control-label">Cidade</label>
-        <input class="form-control" type="text" id="cidade" name="cidade" readonly ngModel required #cidade="ngModel" />
+        <input class="form-control" type="text" id="cidade" placeholder="Cidade" name="cidade" readonly ngModel required #cidade="ngModel" />
         <compo-control [mostraErro]="varificaValidTouched(cidade)" msgErro="Cidade é um campo obrigatório"></compo-control>
 
       </div>
       <div class="col-md-3" [ngClass]="aplicaClassErro(estado)">
         <label for="estado" class="control-label">Estado</label>
-        <input class="form-control" type="text" id="estado" name="estado" readonly ngModel required #estado="ngModel" />
+        <input class="form-control" type="text" id="estado" placeholder="Estado" name="estado" readonly ngModel required #estado="ngModel" />
         <compo-control [mostraErro]="varificaValidTouched(estado)" msgErro="Estado é um campo obrigatório"></compo-control>
 
       </div>

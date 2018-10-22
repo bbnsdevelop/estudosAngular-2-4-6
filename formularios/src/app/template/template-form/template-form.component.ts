@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { HttpClient } from '@angular/common/http';
+import { BuscaCepI } from '../service/buscaCepI';
+import { BuscaCepService } from '../service/impl/busca-cep.service';
+
 
 @Component({
   selector: 'template-form',
@@ -8,18 +10,21 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./template-form.component.css']
 })
 export class TemplateFormComponent implements OnInit {
-
+  buscaCepI: BuscaCepI;
   usuario: any = {
     nome: 'Bruno',
     email: 'brunno1808@hotmail.com'
   }
-  constructor(private httpClient: HttpClient) { }
+  constructor(private cuscaCepService: BuscaCepService) { 
+    this.buscaCepI = this.cuscaCepService;
+  }
 
   ngOnInit() {
   }
 
   onSubmit(formu) {
     console.log(formu);
+    this.buscaCepI.saveForm(formu.value);
     console.log(this.usuario);
   }
   varificaValidTouched(campo) {
@@ -35,10 +40,10 @@ export class TemplateFormComponent implements OnInit {
   consultaCep(cep, form) {
     let consultaViaCep = cep.replace(/\D/g, '');
     if (consultaViaCep != "") {
-      this.resetaForm(form);
       let validaCep = /^[0-9]{8}$/;
       if (validaCep.test(consultaViaCep)) {
-        this.httpClient.get<any>(`https://viacep.com.br/ws/${consultaViaCep}/json/`)
+        this.resetaForm(form);
+        this.buscaCepI.buscaCep(consultaViaCep)
           .subscribe(dados => this.popularDadosForm(dados, form));
       }
     }
@@ -57,7 +62,7 @@ export class TemplateFormComponent implements OnInit {
         estado: dados.uf
       }
     })
-    form.form.patchValue({
+    form.form.patchValue({ // atalualiza parcialmente o formulário
       endereco: {
         cep: dados.cep,
         rua: dados.logradouro,

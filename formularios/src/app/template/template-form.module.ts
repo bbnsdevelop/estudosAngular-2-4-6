@@ -9,6 +9,7 @@ import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
 import { CompoControlComponent } from './compo-control/compo-control.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BuscaCepService } from './service/impl/busca-cep.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     DataFormComponent,
     FormDebugComponent,
     CompoControlComponent
+  ],
+  providers: [
+    BuscaCepService
   ]
 })
 export class TemplateFormModule { }
