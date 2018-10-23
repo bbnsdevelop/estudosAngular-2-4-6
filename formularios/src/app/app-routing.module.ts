@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TemplateFormComponent } from './template/template-form/template-form.component';
-import { DataFormComponent } from './template/data-form/data-form.component';
+import { TemplateFormComponent } from './template/formTemplate/template-form/template-form.component';
+import { DataFormComponent } from './template/reactiveForm/data-form/data-form.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'dataForm', component: DataFormComponent
   },
   {
-    path: '', pathMatch: 'full', redirectTo: 'templateForm'
+    path: '', pathMatch: 'full', redirectTo: 'dataForm'
   },
 ];
 

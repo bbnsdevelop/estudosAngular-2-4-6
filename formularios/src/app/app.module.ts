@@ -6,7 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { TemplateFormModule } from './template/template-form.module';
+import { TemplateFormModule } from './template/formTemplate/template-form.module';
+import { ReactiveFormModule } from './template/reactiveForm/reactive-form.module';
 
 
 
@@ -19,7 +20,8 @@ import { TemplateFormModule } from './template/template-form.module';
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    TemplateFormModule
+    TemplateFormModule,
+    ReactiveFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]
