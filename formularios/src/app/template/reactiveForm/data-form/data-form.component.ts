@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { BuscaCepService } from '../../formTemplate/service/impl/busca-cep.service';
+import { BuscaCepI } from '../../formTemplate/service/buscaCepI';
 
 @Component({
   selector: 'data-form',
@@ -7,10 +9,12 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
-
+  buscaCepI: BuscaCepI;
   formulario: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private cuscaCepService: BuscaCepService) {
+    this.buscaCepI = this.cuscaCepService;
+   }
 
   ngOnInit() {
    
@@ -23,6 +27,11 @@ export class DataFormComponent implements OnInit {
       nome: ['Bruno'],
       email: ['brunno1808@hotmail.com']
     });
+  }
+
+  onSubmit(){
+    console.log(this.formulario);
+    this.buscaCepI.saveForm(this.formulario.value);
   }
 
 }
