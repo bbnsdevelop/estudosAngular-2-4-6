@@ -15,4 +15,7 @@ export class BuscaCepService implements BuscaCepI{
   saveForm(dadosForms: any){
     this.httpClient.post('https://httpbin.org/post', JSON.stringify(dadosForms)).subscribe(dados => console.log(dados));
   }
+  saveFormReactive(dadosForms: any): Observable<any>{
+    return this.httpClient.post('https://httpbin.org/post', JSON.stringify(dadosForms));
+  }
 }

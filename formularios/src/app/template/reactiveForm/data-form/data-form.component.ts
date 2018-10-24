@@ -24,14 +24,21 @@ export class DataFormComponent implements OnInit {
     });
     */
     this.formulario = this.formBuilder.group({
-      nome: ['Bruno'],
-      email: ['brunno1808@hotmail.com']
+      nome: [null],
+      email: [null]
     });
   }
 
   onSubmit(){
     console.log(this.formulario);
-    this.buscaCepI.saveForm(this.formulario.value);
+    this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados =>{
+      console.log(dados);
+      this.formulario.reset();
+    },(error: any) => alert("erro ao processar"));
+  }
+
+  resetar(){
+    this.formulario.reset();
   }
 
 }
