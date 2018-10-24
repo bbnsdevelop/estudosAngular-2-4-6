@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { FormDebugComponent } from '../form-debug/form-debug.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
-import { CompoControlComponent } from './compo-control/compo-control.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BuscaCepService } from './service/impl/busca-cep.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,12 +15,12 @@ import { BuscaCepService } from './service/impl/busca-cep.service';
     FormsModule,
     HttpModule,
     HttpClientModule,
+    SharedModule
     
   ],
   declarations: [
-    TemplateFormComponent,
-    FormDebugComponent,
-    CompoControlComponent
+    TemplateFormComponent
+    
   ],
   providers: [
     BuscaCepService
