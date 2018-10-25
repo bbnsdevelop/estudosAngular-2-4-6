@@ -79,4 +79,40 @@ export class DataFormComponent implements OnInit {
     return this.formulario.get('email').errors['email'].valid;
   }
 
+  consultaCep() {
+    let cep = this.formulario.get("endereco.cep").value;
+    let consultaViaCep = cep.replace(/\D/g, '');
+    if (consultaViaCep != "") {
+      let validaCep = /^[0-9]{8}$/;
+      if (validaCep.test(consultaViaCep)) {
+        this.resetaForm();
+        this.buscaCepI.buscaCep(consultaViaCep)
+          .subscribe(dados => this.popularDadosForm(dados));
+      }
+    }
+  }
+  popularDadosForm(dados) {
+    this.formulario.patchValue({
+      endereco: {
+        cep: dados.cep,
+        numero: "",
+        complemento: "",
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    })
+  }
+  resetaForm() {
+    this.formulario.patchValue({
+      endereco: {
+        rua: null,
+        bairro: null,
+        complemento: null,
+        cidade: null,
+        estado: null
+      }
+    });
+  }
 }
