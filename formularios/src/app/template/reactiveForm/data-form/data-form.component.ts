@@ -40,5 +40,23 @@ export class DataFormComponent implements OnInit {
   resetar(){
     this.formulario.reset();
   }
+  aplicaClassErro(campo) {
+    return {
+      'has-error': this.varificaValidTouched(campo),
+      'has-feedback': this.varificaValidTouched(campo)
+    }
+  }
+  varificaValidTouched(campo) {
+    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+  }
+  varificaEmailValid(): boolean {
+    let campoEmail = this.formulario.get('email');
+    if(campoEmail.errors){
+        return campoEmail.errors['email'] && campoEmail.touched;
+    }
+  }
+  mensagemErroEmail(): boolean {
+    return this.formulario.get('email').errors['email'];
+  }
 
 }
