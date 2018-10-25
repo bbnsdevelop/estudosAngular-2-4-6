@@ -18,10 +18,62 @@
       <compo-control [mostraErro]="varificaEmailValid()" msgErro="Email inválido"></compo-control>
     </div>
   </div>
+
+  <div formGroupName="endereco">
+    <div class="form-group">
+      <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.cep')">
+        <label for="cep" class="control-label">CEP</label>
+        <input class="form-control" type="text" id="cep" placeholder="Cep" formControlName="cep"/>
+        <compo-control [mostraErro]="varificaValidTouched('endereco.cep')" msgErro="Cep é um campo obrigatório"></compo-control>
+
+      </div>
+      <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.numero')">
+        <label for="numero" class="control-label">Número</label>
+        <input class="form-control" type="text" id="numero" placeholder="Número" formControlName="numero"/>
+        <compo-control [mostraErro]="varificaValidTouched('endereco.numero')" msgErro="Número é um campo obrigatório"></compo-control>
+
+      </div>
+      <div class="col-md-6">
+        <label for="complemento" class="control-label">Complemento</label>
+        <input class="form-control" type="text" id="complemento" placeholder="Complemento" formControlName="complemento" />
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="aplicaClassErro('endereco.rua')">
+      <div class="col-sm-12">
+        <label for="rua" class="control-label">Rua</label>
+      </div>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="rua" placeholder="Rua" formControlName="rua" />
+        <compo-control [mostraErro]="varificaValidTouched('endereco.rua')" msgErro="Rua é um campo obrigatório"></compo-control>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-5" [ngClass]="aplicaClassErro('endereco.bairro')">
+        <label for="bairro" class="control-label">Bairro</label>
+        <input class="form-control" type="text" id="bairro" placeholder="Bairro" formControlName="bairro"/>
+        <compo-control [mostraErro]="varificaValidTouched('endereco.bairro')" msgErro="Bairro é um campo obrigatório"></compo-control>
+
+      </div>
+      <div class="col-md-4" [ngClass]="aplicaClassErro('endereco.cidade')">
+        <label for="cidade" class="control-label">Cidade</label>
+        <input class="form-control" type="text" id="cidade" placeholder="Cidade" formControlName="cidade" />
+        <compo-control [mostraErro]="varificaValidTouched('endereco.cidade')" msgErro="Cidade é um campo obrigatório"></compo-control>
+
+      </div>
+      <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.estado')">
+        <label for="estado" class="control-label">Estado</label>
+        <input class="form-control" type="text" id="estado" placeholder="Estado" formControlName="estado" />
+        <compo-control [mostraErro]="varificaValidTouched('endereco.estado')" msgErro="Estado é um campo obrigatório"></compo-control>
+
+      </div>
+    </div>
+  </div>
+
  
   <div class="form-group">
     <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary" >Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!formulario.valid">Submit</button>
       <button type="button" class="btn" (click)="resetar()">Cancelar</button>
     </div>
   </div>

@@ -14,30 +14,50 @@ export class DataFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private cuscaCepService: BuscaCepService) {
     this.buscaCepI = this.cuscaCepService;
-   }
+  }
 
   ngOnInit() {
-   
-   /* this.formulario = new FormGroup({
-      nome: new FormControl('Bruno'),
-      email: new FormControl('brunno1808@hotmail.com')
-    });
-    */
+
+    /* this.formulario = new FormGroup({
+       nome: new FormControl('Bruno'),
+       email: new FormControl('brunno1808@hotmail.com'),
+       endereco: new FormGroup({
+          cep: new FormControl(null),
+          numero: new FormControl(null),
+          complemento: new FormControl(null),
+          rua: new FormControl(null),
+          bairro: new FormControl(null),
+          cidade: new FormControl(null),
+          estado: new FormControl(null)
+       })
+     });
+     */
     this.formulario = this.formBuilder.group({
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      email: [null, [Validators.required, Validators.email]]
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      email: [null, [Validators.required, Validators.email]],
+      endereco: this.formBuilder.group({
+        cep: [null, [Validators.required]],
+        numero: [null, [Validators.required]],
+        complemento: [null],
+        rua: [null, [Validators.required]],
+        bairro: [null, [Validators.required]],
+        cidade: [null, [Validators.required]],
+        estado: [null, [Validators.required]]
+      }
+      )
+
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.formulario);
-    this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados =>{
+    this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados => {
       console.log(dados);
       this.formulario.reset();
-    },(error: any) => alert("erro ao processar"));
+    }, (error: any) => alert("erro ao processar"));
   }
 
-  resetar(){
+  resetar() {
     this.formulario.reset();
   }
   aplicaClassErro(campo) {
@@ -51,12 +71,12 @@ export class DataFormComponent implements OnInit {
   }
   varificaEmailValid(): boolean {
     let campoEmail = this.formulario.get('email');
-    if(campoEmail.errors){
-        return campoEmail.errors['email'] && campoEmail.touched;
+    if (campoEmail.errors) {
+      return campoEmail.errors['email'] && campoEmail.touched;
     }
   }
   mensagemErroEmail(): boolean {
-    return this.formulario.get('email').errors['email'];
+    return this.formulario.get('email').errors['email'].valid;
   }
 
 }
