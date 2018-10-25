@@ -50,11 +50,26 @@ export class DataFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formulario);
-    this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados => {
-      console.log(dados);
-      this.formulario.reset();
-    }, (error: any) => alert("erro ao processar"));
+    if (this.formulario.valid) {
+      console.log(this.formulario);
+      this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados => {
+        console.log(dados);
+        this.formulario.reset();
+      }, (error: any) => alert("erro ao processar"));
+    }
+    else{
+     this.validaFormulario(this.formulario);
+    }
+
+  }
+  validaFormulario(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(campo =>{
+      const controle = formGroup.get(campo);
+      controle.markAsTouched();
+      if(controle instanceof FormGroup){
+        this.validaFormulario(controle);
+      }
+    });
   }
 
   resetar() {
