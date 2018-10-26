@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BuscaCepService } from '../../formTemplate/service/impl/busca-cep.service';
 import { BuscaCepI } from '../../formTemplate/service/buscaCepI';
+import { BuscaEstadosInService } from '../../shared/service/busca-estados-in.service';
+import { BuscaEstadosImpl } from '../../shared/service/impl/busca-estados-impl.service';
+import { Estado } from '../../shared/model/estados-br.model';
+import { element } from 'protractor';
 
 @Component({
   selector: 'data-form',
@@ -10,14 +14,18 @@ import { BuscaCepI } from '../../formTemplate/service/buscaCepI';
 })
 export class DataFormComponent implements OnInit {
   buscaCepI: BuscaCepI;
+  buscaEstadosService: BuscaEstadosInService;
   formulario: FormGroup;
+  estados: Array<Estado>;
 
-  constructor(private formBuilder: FormBuilder, private cuscaCepService: BuscaCepService) {
-    this.buscaCepI = this.cuscaCepService;
+  constructor(private formBuilder: FormBuilder, private bcuscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl) {
+    this.buscaEstadosService = this.buscaEstadosImpl;
+    this.buscaCepI = this.bcuscaCepService;
   }
 
   ngOnInit() {
-
+       this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
+    
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -130,4 +138,12 @@ export class DataFormComponent implements OnInit {
       }
     });
   }
+  private formatEstadoJsonToEstado(elements){
+    this.estados = new Array();
+    let estado: Estado;
+    elements.forEach(element =>{
+      estado = new Estado(element.id, element.sigla, element.nome);
+      this.estados.push(estado);
+    });
+  } 
 }
