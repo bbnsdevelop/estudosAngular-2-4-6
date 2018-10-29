@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/map';
 import { BuscaCepI } from '../service/buscaCepI';
 import { BuscaCepService } from '../service/impl/busca-cep.service';
 

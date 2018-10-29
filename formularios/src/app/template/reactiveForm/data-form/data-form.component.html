@@ -50,13 +50,13 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-md-5" [ngClass]="aplicaClassErro('endereco.bairro')">
+      <div class="col-md-4" [ngClass]="aplicaClassErro('endereco.bairro')">
         <label for="bairro" class="control-label">Bairro</label>
         <input class="form-control" type="text" id="bairro" placeholder="Bairro" readonly formControlName="bairro"/>
         <compo-control [mostraErro]="varificaValidTouched('endereco.bairro')" msgErro="Bairro é um campo obrigatório"></compo-control>
 
       </div>
-      <div class="col-md-4" [ngClass]="aplicaClassErro('endereco.cidade')">
+      <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.cidade')">
         <label for="cidade" class="control-label">Cidade</label>
         <input class="form-control" type="text" id="cidade" placeholder="Cidade" readonly formControlName="cidade" />
         <compo-control [mostraErro]="varificaValidTouched('endereco.cidade')" msgErro="Cidade é um campo obrigatório"></compo-control>
@@ -65,6 +65,12 @@
       <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.estado')">
         <label for="estado" class="control-label">Estado</label>
         <input class="form-control" type="text" id="estado" placeholder="Estado" readonly formControlName="estado" />
+        <compo-control [mostraErro]="varificaValidTouched('endereco.estado')" msgErro="Estado é um campo obrigatório"></compo-control>
+
+      </div>
+      <div class="col-md-2" [ngClass]="aplicaClassErro('endereco.estado')">
+        <label for="estado" class="control-label">Estado serviços</label>
+        <input class="form-control" type="text" id="estado" placeholder="Estado" formControlName="estado" />
         <compo-control [mostraErro]="varificaValidTouched('endereco.estado')" msgErro="Estado é um campo obrigatório"></compo-control>
 
       </div>

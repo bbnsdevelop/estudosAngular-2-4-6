@@ -1,0 +1,14 @@
+para atualizar o projeto é necessário instalar novamente o angular cli
+
+npm install -g @angular/cli@6.0.8 
+ou a ultima versão
+
+npm install -g @angular/cli@
+
+atualizar as dependencias de desenvolvimento 
+
+npm install --save-dev @angular/cli@6.0.8
+
+
+
+npm install -g rxjs-tslint - para as requisições ajax 

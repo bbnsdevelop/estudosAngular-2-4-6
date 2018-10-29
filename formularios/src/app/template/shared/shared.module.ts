@@ -4,11 +4,16 @@ import { FormDebugComponent } from './form-debug/form-debug.component';
 import { CompoControlComponent } from './compo-control/compo-control.component';
 import { BuscaEstadosImpl } from './service/impl/busca-estados-impl.service';
 import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
   declarations: [
     FormDebugComponent,
@@ -16,7 +21,12 @@ import { HttpModule } from '@angular/http';
   ],
   exports:[
     FormDebugComponent,
-    CompoControlComponent
+    CompoControlComponent,
+    CommonModule,
+    HttpModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers:[
     BuscaEstadosImpl

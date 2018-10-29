@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BuscaEstadosInService } from '../busca-estados-in.service';
-import { Estado } from '../../model/estados-br.model';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BuscaEstadosImpl implements BuscaEstadosInService{
 
-  constructor(private http: Http) { 
+  constructor(private http: HttpClient) { 
 
   }
   getEstadosBr(){
-    return this.http.get('/assets/dados/estadosbr.json').map((res: Response) => res.json());
-    
+    return this.http.get('/assets/dados/estadosbr.json');
   }
   
 }
