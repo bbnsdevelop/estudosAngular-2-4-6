@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BuscaCepService } from '../../formTemplate/service/impl/busca-cep.service';
-import { BuscaCepI } from '../../formTemplate/service/buscaCepI';
+import { BuscaCepService } from '../../shared/service/impl/busca-cep.service';
+import { BuscaCepI } from '../../shared/service/buscaCepI';
 import { BuscaEstadosInService } from '../../shared/service/busca-estados-in.service';
 import { BuscaEstadosImpl } from '../../shared/service/impl/busca-estados-impl.service';
 import { Estado } from '../../shared/model/estados-br.model';
-import { element } from 'protractor';
 
 @Component({
   selector: 'data-form',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BuscaCepI } from '../service/buscaCepI';
-import { BuscaCepService } from '../service/impl/busca-cep.service';
+import { BuscaCepI } from '../../shared/service/buscaCepI';
+import { BuscaCepService } from '../../shared/service/impl/busca-cep.service';
 
 
 @Component({
@@ -14,8 +14,8 @@ export class TemplateFormComponent implements OnInit {
     nome: 'Bruno',
     email: 'brunno1808@hotmail.com'
   }
-  constructor(private cuscaCepService: BuscaCepService) { 
-    this.buscaCepI = this.cuscaCepService;
+  constructor(private buscaCepService: BuscaCepService) { 
+    this.buscaCepI = this.buscaCepService;
   }
 
   ngOnInit() {
