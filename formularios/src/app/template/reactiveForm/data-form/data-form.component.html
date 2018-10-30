@@ -70,7 +70,9 @@
       </div>
       <div class="col-md-2" [ngClass]="aplicaClassErro('endereco.estado')">
         <label for="estado" class="control-label">Estado serviços</label>
-        <input class="form-control" type="text" id="estado" placeholder="Estado" formControlName="estado" />
+        <select class="form-control" id="estado" placeholder="Estado" formControlName="estado">
+          <option *ngFor="let estado of estados" [value]="estado.sigla" >{{estado.nome}}</option>
+        </select>
         <compo-control [mostraErro]="varificaValidTouched('endereco.estado')" msgErro="Estado é um campo obrigatório"></compo-control>
 
       </div>

@@ -144,5 +144,8 @@ export class DataFormComponent implements OnInit {
       estado = new Estado(element.id, element.sigla, element.nome);
       this.estados.push(estado);
     });
+  }
+  ngOnDestroy(){
+    this.estados = null;
   } 
 }
