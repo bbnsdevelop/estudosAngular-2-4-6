@@ -78,13 +78,21 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+    <div class="col-md-3" [ngClass]="aplicaClassErro('cargo')">
+      <label for="estado" class="control-label">Cargo</label>
+      <select class="form-control" id="cargo" placeholder="Cargo" formControlName="cargo">
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo" >{{cargo.desc}}</option>
+      </select>
+    </div>
+  </div>
 
  
   <div class="form-group">
     <div class="col-sm-12">
       <button type="submit" class="btn btn-primary">Submit</button>
       <!--<button type="submit" class="btn btn-primary" [disabled]="!formulario.valid">Submit</button>-->
-      <button type="button" class="btn" (click)="resetar()">Cancelar</button>
+      <button type="button" class="btn left-m" (click)="resetar()">Cancelar</button>
     </div>
   </div>
   <div class="form-group">

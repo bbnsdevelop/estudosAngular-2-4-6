@@ -16,6 +16,7 @@ export class DataFormComponent implements OnInit {
   buscaEstadosService: BuscaEstadosInService;
   formulario: FormGroup;
   estados: Array<Estado>;
+  cargos: any[];
 
   constructor(private formBuilder: FormBuilder, private bcuscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl) {
     this.buscaEstadosService = this.buscaEstadosImpl;
@@ -23,8 +24,8 @@ export class DataFormComponent implements OnInit {
   }
 
   ngOnInit() {
-       this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
-    
+     this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
+     this.cargos = this.buscaEstadosService.getCargo();  
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -50,9 +51,8 @@ export class DataFormComponent implements OnInit {
         bairro: [null, [Validators.required]],
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]]
-      }
-      )
-
+      }),
+      cargo: [null]
     });
   }
 
@@ -145,6 +145,7 @@ export class DataFormComponent implements OnInit {
       this.estados.push(estado);
     });
   }
+ 
   ngOnDestroy(){
     this.estados = null;
   } 
