@@ -22,5 +22,19 @@ export class BuscaEstadosImpl implements BuscaEstadosInService{
       { nome: 'dev', nivel: 'sênior', desc: 'desenvolvedor sênior' },
     ];
   }
+  getTecnologias(){
+    return [
+      {nome: 'java', desc: 'Java'},
+      {nome: 'javascript', desc: 'JavaScript'},
+      {nome: 'php', desc: 'PHP'},
+      {nome: 'ruby', desc: 'Ruby'},
+    ];
+  }
+  getNewsletter(){
+    return [
+      {valor: 's', desc: 'Sim'},
+      {valor: 'n', desc: 'Não'}
+    ];
+  }
   
 }

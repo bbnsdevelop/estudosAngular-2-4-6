@@ -17,15 +17,19 @@ export class DataFormComponent implements OnInit {
   formulario: FormGroup;
   estados: Array<Estado>;
   cargos: any[];
+  tecnologias: any[];
+  newsLatters: any[];
 
-  constructor(private formBuilder: FormBuilder, private bcuscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl) {
+  constructor(private formBuilder: FormBuilder, private buscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl) {
     this.buscaEstadosService = this.buscaEstadosImpl;
-    this.buscaCepI = this.bcuscaCepService;
+    this.buscaCepI = this.buscaCepService;
   }
 
   ngOnInit() {
      this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
-     this.cargos = this.buscaEstadosService.getCargo();  
+     this.cargos = this.buscaEstadosService.getCargo(); 
+     this.tecnologias = this.buscaEstadosService.getTecnologias();
+     this.newsLatters = this.buscaEstadosService.getNewsletter(); 
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -52,7 +56,9 @@ export class DataFormComponent implements OnInit {
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]]
       }),
-      cargo: [null]
+      cargo: [null],
+      tecnologia: [null],
+      newsletter: ['s']
     });
   }
 

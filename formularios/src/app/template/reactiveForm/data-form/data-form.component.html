@@ -14,7 +14,7 @@
     </div>
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" placeholder="nome@email.com" formControlName="email">
-      <compo-control [mostraErro]="varificaValidTouched('email')" msgErro="Email é um campo obrigatório" ></compo-control>
+      <compo-control [mostraErro]="varificaValidTouched('email')" msgErro="Email é um campo obrigatório"></compo-control>
       <compo-control [mostraErro]="varificaEmailValid()" msgErro="Email inválido"></compo-control>
     </div>
   </div>
@@ -23,14 +23,13 @@
     <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.cep')">
         <label for="cep" class="control-label">CEP</label>
-        <input class="form-control" type="text" id="cep" placeholder="Cep" formControlName="cep"
-        (blur)="consultaCep()"/>
+        <input class="form-control" type="text" id="cep" placeholder="Cep" formControlName="cep" (blur)="consultaCep()" />
         <compo-control [mostraErro]="varificaValidTouched('endereco.cep')" msgErro="Cep é um campo obrigatório"></compo-control>
 
       </div>
       <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.numero')">
         <label for="numero" class="control-label">Número</label>
-        <input class="form-control" type="text" id="numero" placeholder="Número" formControlName="numero"/>
+        <input class="form-control" type="text" id="numero" placeholder="Número" formControlName="numero" />
         <compo-control [mostraErro]="varificaValidTouched('endereco.numero')" msgErro="Número é um campo obrigatório"></compo-control>
 
       </div>
@@ -52,7 +51,7 @@
     <div class="form-group">
       <div class="col-md-4" [ngClass]="aplicaClassErro('endereco.bairro')">
         <label for="bairro" class="control-label">Bairro</label>
-        <input class="form-control" type="text" id="bairro" placeholder="Bairro" readonly formControlName="bairro"/>
+        <input class="form-control" type="text" id="bairro" placeholder="Bairro" readonly formControlName="bairro" />
         <compo-control [mostraErro]="varificaValidTouched('endereco.bairro')" msgErro="Bairro é um campo obrigatório"></compo-control>
 
       </div>
@@ -71,7 +70,7 @@
       <div class="col-md-2" [ngClass]="aplicaClassErro('endereco.estado')">
         <label for="estado" class="control-label">Estado serviços</label>
         <select class="form-control" id="estado" placeholder="Estado" formControlName="estado">
-          <option *ngFor="let estado of estados" [value]="estado.sigla" >{{estado.nome}}</option>
+          <option *ngFor="let estado of estados" [value]="estado.sigla">{{estado.nome}}</option>
         </select>
         <compo-control [mostraErro]="varificaValidTouched('endereco.estado')" msgErro="Estado é um campo obrigatório"></compo-control>
 
@@ -82,12 +81,28 @@
     <div class="col-md-3" [ngClass]="aplicaClassErro('cargo')">
       <label for="estado" class="control-label">Cargo</label>
       <select class="form-control" id="cargo" placeholder="Cargo" formControlName="cargo">
-        <option *ngFor="let cargo of cargos" [ngValue]="cargo" >{{cargo.desc}}</option>
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo">{{cargo.desc}}</option>
       </select>
+    </div>
+    <div class="col-md-3" [ngClass]="aplicaClassErro('tecnologia')">
+      <label for="estado" class="control-label">Tecnologias</label>
+      <select multiple class="form-control" id="tecnologias" formControlName="tecnologia">
+        <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">{{tecnologia.desc}}</option>
+      </select>
+    </div>
+    <div class="col-md-3" [ngClass]="aplicaClassErro('newsletter')">
+      <label for="newsletter" class="control-label">Newsletter</label>
+      <div id="newsletter" class="row">
+        <div class="col-sm-4" *ngFor="let newsLatter of newsLatters">
+          <label class="radio-inline">
+            <input type="radio" [value]="newsLatter.valor" formControlName="newsletter" />{{newsLatter.desc}}
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 
- 
+
   <div class="form-group">
     <div class="col-sm-12">
       <button type="submit" class="btn btn-primary">Submit</button>
