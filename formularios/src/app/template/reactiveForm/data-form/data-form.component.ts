@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { BuscaCepService } from '../../shared/service/impl/busca-cep.service';
 import { BuscaCepI } from '../../shared/service/buscaCepI';
 import { BuscaEstadosInService } from '../../shared/service/busca-estados-in.service';
@@ -7,6 +7,7 @@ import { BuscaEstadosImpl } from '../../shared/service/impl/busca-estados-impl.s
 import { Estado } from '../../shared/model/estados-br.model';
 import { GenericService } from '../../shared/service/generic.service';
 import { GenericImplService } from '../../shared/service/impl/generic-impl.service';
+import { FormValidatoins } from '../../shared/validator/form-validator';
 
 @Component({
   selector: 'data-form',
@@ -71,11 +72,10 @@ export class DataFormComponent implements OnInit {
   }
   builderFrameworks(){
     const values = this.frameWorks.map(v => new FormControl(false));
-    return this.formBuilder.array(values);
+    return this.formBuilder.array(values, FormValidatoins.requiredMinCheckBox(1));
   }
   onSubmit() {
     if (this.formulario.valid) {
-      console.log(this.formulario);
       let valueSubmit = Object.assign({}, this.formulario.value);
       valueSubmit = Object.assign(valueSubmit, {
         frameWorks: valueSubmit.frameWorks
@@ -171,5 +171,7 @@ export class DataFormComponent implements OnInit {
  
   ngOnDestroy(){
     this.estados = null;
-  } 
+  }
+  
+  
 }

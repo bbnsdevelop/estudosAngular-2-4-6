@@ -110,15 +110,16 @@
         <compo-control [mostraErro]="varificaValidTouched('termos')" msgErro="Por favor aceite os termos"></compo-control>
       </div>
     </div>
-    <div class="col-md-3" [ngClass]="aplicaClassErro('frameWorks')">
+    <div class="col-md-6" [ngClass]="aplicaClassErro('frameWorks')">
       <label for="frameWorks">Frameworks</label>
       <div id="frameWorks" class="row">
-        <div class="checkbox" class="col-md-4" formArrayName="frameWorks" *ngFor="let frame of formulario.get('frameWorks').controls; let i = index">
+        <div class="checkbox" class="col-md-2" formArrayName="frameWorks" *ngFor="let frame of formulario.get('frameWorks').controls; let i = index">
           <label class="checkbox-inline">
             <input type="checkbox" [formControlName]="i" />{{ frameWorks[i] }}
           </label>
         </div>
       </div>
+      <compo-control [mostraErro]="varificaValidTouched('frameWorks')" msgErro="Selecione 1 opção"></compo-control>
     </div>
   </div>
 
