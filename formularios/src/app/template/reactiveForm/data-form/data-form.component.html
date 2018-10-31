@@ -18,6 +18,17 @@
       <compo-control [mostraErro]="varificaEmailValid()" msgErro="Email inválido"></compo-control>
     </div>
   </div>
+  <div class="form-group" [ngClass]="aplicaClassErro('confirmarEmail')">
+      <div class="col-sm-12">
+        <label for="confirmarEmail" class="control-label">Confirmar Email</label>
+      </div>
+      <div class="col-sm-12">
+        <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com" formControlName="confirmarEmail">
+        <compo-control [mostraErro]="formulario.get('confirmarEmail').hasError('equalsTo')" 
+          msgErro="Emails não são iguais">
+        </compo-control>
+      </div>
+    </div>
 
   <div formGroupName="endereco">
     <div class="form-group">
