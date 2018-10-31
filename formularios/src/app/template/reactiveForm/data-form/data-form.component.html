@@ -103,11 +103,21 @@
   </div>
   <div class="form-group">
     <div class="col-md-3" [ngClass]="aplicaClassErro('termos')">
-      <div class="checkbox-inline">
-        <label>
+      <div class="checkbox">
+        <label class="checkbox-inline">
           <input type="checkbox" formControlName="termos" id="termos" /> Aceito os termos
         </label>
         <compo-control [mostraErro]="varificaValidTouched('termos')" msgErro="Por favor aceite os termos"></compo-control>
+      </div>
+    </div>
+    <div class="col-md-3" [ngClass]="aplicaClassErro('frameWorks')">
+      <label for="frameWorks">Frameworks</label>
+      <div id="frameWorks" class="row">
+        <div class="checkbox" class="col-md-4" formArrayName="frameWorks" *ngFor="let frame of formulario.get('frameWorks').controls; let i = index">
+          <label class="checkbox-inline">
+            <input type="checkbox" [formControlName]="i" />{{ frameWorks[i] }}
+          </label>
+        </div>
       </div>
     </div>
   </div>

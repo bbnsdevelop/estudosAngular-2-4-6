@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BuscaCepService } from '../../shared/service/impl/busca-cep.service';
 import { BuscaCepI } from '../../shared/service/buscaCepI';
 import { BuscaEstadosInService } from '../../shared/service/busca-estados-in.service';
 import { BuscaEstadosImpl } from '../../shared/service/impl/busca-estados-impl.service';
 import { Estado } from '../../shared/model/estados-br.model';
+import { GenericService } from '../../shared/service/generic.service';
+import { GenericImplService } from '../../shared/service/impl/generic-impl.service';
 
 @Component({
   selector: 'data-form',
@@ -13,23 +15,27 @@ import { Estado } from '../../shared/model/estados-br.model';
 })
 export class DataFormComponent implements OnInit {
   buscaCepI: BuscaCepI;
+  genericService: GenericService;
   buscaEstadosService: BuscaEstadosInService;
   formulario: FormGroup;
   estados: Array<Estado>;
   cargos: any[];
   tecnologias: any[];
   newsLatters: any[];
+  frameWorks: any[];
 
-  constructor(private formBuilder: FormBuilder, private buscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl) {
+  constructor(private formBuilder: FormBuilder, private buscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl, private genericImplService: GenericImplService) {
     this.buscaEstadosService = this.buscaEstadosImpl;
     this.buscaCepI = this.buscaCepService;
+    this.genericService = this.genericImplService;
   }
 
   ngOnInit() {
      this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
-     this.cargos = this.buscaEstadosService.getCargo(); 
-     this.tecnologias = this.buscaEstadosService.getTecnologias();
-     this.newsLatters = this.buscaEstadosService.getNewsletter(); 
+     this.cargos = this.genericService.getCargo(); 
+     this.tecnologias = this.genericService.getTecnologias();
+     this.newsLatters = this.genericService.getNewsletter(); 
+     this.frameWorks = this.genericService.getFrameWorks();
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -59,14 +65,24 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologia: [null],
       newsletter: ['s'],
-      termos: [false, Validators.pattern('true')]
+      termos: [false, Validators.pattern('true')],
+      frameWorks: this.builderFrameworks()
     });
   }
-
+  builderFrameworks(){
+    const values = this.frameWorks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
+  }
   onSubmit() {
     if (this.formulario.valid) {
       console.log(this.formulario);
-      this.buscaCepI.saveFormReactive(this.formulario.value).subscribe(dados => {
+      let valueSubmit = Object.assign({}, this.formulario.value);
+      valueSubmit = Object.assign(valueSubmit, {
+        frameWorks: valueSubmit.frameWorks
+          .map((v, i) => v ? this.frameWorks[i] : null)
+          .filter(v => v !== null)
+      });
+      this.buscaCepI.saveFormReactive(valueSubmit).subscribe(dados => {
         console.log(dados);
         this.formulario.reset();
       }, (error: any) => alert("erro ao processar"));
