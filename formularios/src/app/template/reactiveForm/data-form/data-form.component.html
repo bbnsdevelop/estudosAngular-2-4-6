@@ -24,7 +24,8 @@
       <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.cep')">
         <label for="cep" class="control-label">CEP</label>
         <input class="form-control" type="text" id="cep" placeholder="Cep" formControlName="cep" (blur)="consultaCep()" />
-        <compo-control [mostraErro]="varificaValidTouched('endereco.cep')" msgErro="Cep é um campo obrigatório"></compo-control>
+        <compo-control [mostraErro]="varificaValidTouched('endereco.cep') && !formulario.get('endereco.cep').hasError('cepInvalido')" msgErro="Cep é um campo obrigatório"></compo-control>
+        <compo-control [mostraErro]="formulario.get('endereco.cep').hasError('cepInvalido')" msgErro="Cep é inválido"></compo-control>
 
       </div>
       <div class="col-md-3" [ngClass]="aplicaClassErro('endereco.numero')">
