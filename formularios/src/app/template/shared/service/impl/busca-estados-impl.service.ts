@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BuscaEstadosInService } from '../busca-estados-in.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class BuscaEstadosImpl implements BuscaEstadosInService{

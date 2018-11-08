@@ -3,4 +3,6 @@ export interface GenericService {
     getTecnologias();
     getNewsletter();
     getFrameWorks();
+    getDadosIniciais();
+    verificarEmail(email: string);
 }

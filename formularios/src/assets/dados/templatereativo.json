@@ -1,0 +1,30 @@
+{
+    "nome": "bruno batista do nascimento santos",
+    "email": "brunno1808@hotmail.com",
+    "confirmarEmail": "brunno1808@hotmail.com",
+    "endereco": {
+        "cep": "06435-090",
+        "numero": "15",
+        "complemento": "casa",
+        "rua": "Rua Fagundes Varela",
+        "bairro": "Jardim Tupan",
+        "cidade": "Barueri",
+        "estado": "SP"
+    },
+    "cargo": {
+        "nome": "dev",
+        "nivel": "junior",
+        "desc": "desenvolvedor junior"
+    },
+    "tecnologia": [
+        "java",
+        "javascript"
+    ],
+    "newsletter": "s",
+    "termos": true,
+    "frameWorks": [
+        "Angular",
+        "React",
+        "Vue"
+    ]
+}

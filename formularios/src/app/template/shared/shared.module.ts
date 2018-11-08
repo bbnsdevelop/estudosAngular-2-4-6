@@ -6,6 +6,7 @@ import { BuscaEstadosImpl } from './service/impl/busca-estados-impl.service';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     FormDebugComponent,
-    CompoControlComponent
+    CompoControlComponent,
+    ErrorMessageComponent
   ],
   exports:[
     FormDebugComponent,
@@ -26,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ErrorMessageComponent
   ],
   providers:[
     BuscaEstadosImpl

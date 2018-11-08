@@ -8,6 +8,7 @@ import { Estado } from '../../shared/model/estados-br.model';
 import { GenericService } from '../../shared/service/generic.service';
 import { GenericImplService } from '../../shared/service/impl/generic-impl.service';
 import { FormValidatoins } from '../../shared/validator/form-validator';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'data-form',
@@ -24,6 +25,7 @@ export class DataFormComponent implements OnInit {
   tecnologias: any[];
   newsLatters: any[];
   frameWorks: any[];
+  dadosIniciais: any;
 
   constructor(private formBuilder: FormBuilder, private buscaCepService: BuscaCepService, private buscaEstadosImpl: BuscaEstadosImpl, private genericImplService: GenericImplService) {
     this.buscaEstadosService = this.buscaEstadosImpl;
@@ -37,6 +39,10 @@ export class DataFormComponent implements OnInit {
      this.tecnologias = this.genericService.getTecnologias();
      this.newsLatters = this.genericService.getNewsletter(); 
      this.frameWorks = this.genericService.getFrameWorks();
+     this.genericService.getDadosIniciais().subscribe(dados => this.populaCampos(dados));
+     if(this.dadosIniciais){
+      console.log(this.dadosIniciais);
+     }
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -53,7 +59,7 @@ export class DataFormComponent implements OnInit {
      */
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      email: [null, [Validators.required, Validators.email]],
+    email: [null, [Validators.required, Validators.email], /*[this.verificarEmail.bind(this)]*/],
       confirmarEmail: [null, [FormValidatoins.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidatoins.cepValidator]],
@@ -71,6 +77,7 @@ export class DataFormComponent implements OnInit {
       frameWorks: this.builderFrameworks()
     });
   }
+  
   builderFrameworks(){
     const values = this.frameWorks.map(v => new FormControl(false));
     return this.formBuilder.array(values, FormValidatoins.requiredMinCheckBox(1));
@@ -161,6 +168,31 @@ export class DataFormComponent implements OnInit {
       }
     });
   }
+  populaCampos(dados) {
+    if(dados){
+      this.formulario.patchValue({
+        nome: dados.nome,
+        email: dados.email,
+        confirmarEmail: dados.confirmarEmail,
+        endereco :{
+          cep: dados.endereco.cep,
+          numero: dados.endereco.numero,
+          complemento: dados.endereco.complemento,
+          rua: dados.endereco.rua,
+          bairro: dados.endereco.bairro,
+          cidade: dados.endereco.cidade,
+          estado: dados.endereco.estado
+        },
+        cargo: dados.cargo,
+        tecnologia: dados.tecnologia,
+        newsletter: dados.newsletter,
+        termos: dados.termos,
+        frameWorks: dados.frameWorks
+
+      });
+      this.dadosIniciais = dados;
+    }
+  }
   private formatEstadoJsonToEstado(elements){
     this.estados = new Array();
     let estado: Estado;
@@ -174,5 +206,11 @@ export class DataFormComponent implements OnInit {
     this.estados = null;
   }
   
+  verificarEmail(formControl: FormControl){
+    if(formControl.valid){
+      return this.genericService.verificarEmail(formControl.value)
+        .pipe(map ( emailExiste => emailExiste ? { emailInvalido: true} : null));
+    }
+  }
   
 }
