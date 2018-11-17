@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome">
-      <compo-control [mostraErro]="varificaValidTouched('nome')" msgErro="Nome é um campo obrigatório"></compo-control>
+      <error-message [mostraErro]="varificaValidTouched('nome')" msgErro="Nome é um campo obrigatório"></error-message>
     </div>
   </div>
   <div class="form-group" [ngClass]="aplicaClassErro('email')">

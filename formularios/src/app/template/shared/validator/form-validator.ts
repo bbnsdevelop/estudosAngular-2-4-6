@@ -47,4 +47,9 @@ export class FormValidatoins {
         }
         return validator;
     }
+    static getErrorMessage(fieldName: string, validatorName: string){
+        const config ={
+
+        };
+    }
 }
