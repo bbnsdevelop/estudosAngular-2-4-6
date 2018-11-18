@@ -8,7 +8,8 @@ import { Estado } from '../../shared/model/estados-br.model';
 import { GenericService } from '../../shared/service/generic.service';
 import { GenericImplService } from '../../shared/service/impl/generic-impl.service';
 import { FormValidatoins } from '../../shared/validator/form-validator';
-import { map } from 'rxjs/operators'
+import { map, distinctUntilChanged, switchMap } from 'rxjs/operators'
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'data-form',
@@ -34,15 +35,15 @@ export class DataFormComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
-     this.cargos = this.genericService.getCargo(); 
-     this.tecnologias = this.genericService.getTecnologias();
-     this.newsLatters = this.genericService.getNewsletter(); 
-     this.frameWorks = this.genericService.getFrameWorks();
-     this.genericService.getDadosIniciais().subscribe(dados => this.populaCampos(dados));
-     if(this.dadosIniciais){
+    this.buscaEstadosService.getEstadosBr().subscribe(dados => this.formatEstadoJsonToEstado(dados));
+    this.cargos = this.genericService.getCargo();
+    this.tecnologias = this.genericService.getTecnologias();
+    this.newsLatters = this.genericService.getNewsletter();
+    this.frameWorks = this.genericService.getFrameWorks();
+    this.genericService.getDadosIniciais().subscribe(dados => this.populaCampos(dados));
+    if (this.dadosIniciais) {
       console.log(this.dadosIniciais);
-     }
+    }
     /* this.formulario = new FormGroup({
        nome: new FormControl('Bruno'),
        email: new FormControl('brunno1808@hotmail.com'),
@@ -59,7 +60,7 @@ export class DataFormComponent implements OnInit {
      */
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    email: [null, [Validators.required, Validators.email], /*[this.verificarEmail.bind(this)]*/],
+      email: [null, [Validators.required, Validators.email], /*[this.verificarEmail.bind(this)]*/],
       confirmarEmail: [null, [FormValidatoins.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidatoins.cepValidator]],
@@ -76,9 +77,18 @@ export class DataFormComponent implements OnInit {
       termos: [false, Validators.pattern('true')],
       frameWorks: this.builderFrameworks()
     });
+    this.formulario.get('endereco.cep').statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        switchMap(status => status === 'VALID' ?
+          this.buscaCepI.buscaCep(this.formulario.get('endereco.cep').value)
+          : empty()
+        )
+      )
+      .subscribe(dados => dados ? this.popularDadosForm(dados) : {});
   }
-  
-  builderFrameworks(){
+
+  builderFrameworks() {
     const values = this.frameWorks.map(v => new FormControl(false));
     return this.formBuilder.array(values, FormValidatoins.requiredMinCheckBox(1));
   }
@@ -95,16 +105,16 @@ export class DataFormComponent implements OnInit {
         this.formulario.reset();
       }, (error: any) => alert("erro ao processar"));
     }
-    else{
-     this.validaFormulario(this.formulario);
+    else {
+      this.validaFormulario(this.formulario);
     }
 
   }
-  validaFormulario(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(campo =>{
+  validaFormulario(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(campo => {
       const controle = formGroup.get(campo);
       controle.markAsTouched();
-      if(controle instanceof FormGroup){
+      if (controle instanceof FormGroup) {
         this.validaFormulario(controle);
       }
     });
@@ -169,12 +179,12 @@ export class DataFormComponent implements OnInit {
     });
   }
   populaCampos(dados) {
-    if(dados){
+    if (dados) {
       this.formulario.patchValue({
         nome: dados.nome,
         email: dados.email,
         confirmarEmail: dados.confirmarEmail,
-        endereco :{
+        endereco: {
           cep: dados.endereco.cep,
           numero: dados.endereco.numero,
           complemento: dados.endereco.complemento,
@@ -193,24 +203,24 @@ export class DataFormComponent implements OnInit {
       this.dadosIniciais = dados;
     }
   }
-  private formatEstadoJsonToEstado(elements){
+  private formatEstadoJsonToEstado(elements) {
     this.estados = new Array();
     let estado: Estado;
-    elements.forEach(element =>{
+    elements.forEach(element => {
       estado = new Estado(element.id, element.sigla, element.nome);
       this.estados.push(estado);
     });
   }
- 
-  ngOnDestroy(){
+
+  ngOnDestroy() {
     this.estados = null;
   }
-  
-  verificarEmail(formControl: FormControl){
-    if(formControl.valid){
+
+  verificarEmail(formControl: FormControl) {
+    if (formControl.valid) {
       return this.genericService.verificarEmail(formControl.value)
-        .pipe(map ( emailExiste => emailExiste ? { emailInvalido: true} : null));
+        .pipe(map(emailExiste => emailExiste ? { emailInvalido: true } : null));
     }
   }
-  
+
 }
